@@ -1,0 +1,57 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Large local asset payloads live outside this repo:
+# Set DOTA_ROOT or VITE_LOCAL_ASSET_ROOT to a private local asset workspace.
+public/audio/
+public/game-scene/
+public/generated/
+public/mdx-test/
+public/models/
+public/models-optimized/
+public/models-original/
+public/models-premium/
+public/wc3-textures/
+music/
+dogfood-output/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.vercel
+
+# Credentials and private local state
+.env
+.env.*
+!.env.example
+.secrets/
+*.pem
+*.key
+*.p12
+*.pfx
+*recovery*.rtf
+*recovery*.md
+__MACOSX/
+._*
+
+# Local-only launchers are not portable public downloads
+/public/downloads/frame-grab-macos.zip
+/public/downloads/frame-extractor-macos.zip
