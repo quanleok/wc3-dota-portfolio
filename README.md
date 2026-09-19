@@ -2,6 +2,8 @@
 
 React and TypeScript storefront prototype with 3D previews, BattleTag checkout, and admin order tools.
 
+**Public portfolio source:** [quanleok/wc3-dota-portfolio](https://github.com/quanleok/wc3-dota-portfolio)
+
 ## Project overview
 
 **Stack:** React, TypeScript, Vite and Stripe.
@@ -20,16 +22,16 @@ The app repo is kept separate from the large DotA map and asset workspace:
 - DotA asset/map workspace: `../dota`
 - local site asset payload: `../dota/site-assets/w3dotashop-public`
 
-This version is structured around the actual entitlement flow:
+The prototype models an entitlement flow:
 
 - player chooses a skin or future digital item
 - checkout captures the player BattleTag
 - admin or host bot reads the order payload
-- the DotA map grants the right skin entitlement at game start
+- an external host-bot or map integration would grant the matching entitlement
 
 ## What is in this repo
 
-- polished storefront for skins first, future shop items later
+- storefront interfaces for cosmetic products
 - BattleTag-first checkout form
 - admin login surface for partner / bot-hosting operations
 - Stripe Checkout Session endpoint scaffold
@@ -76,7 +78,8 @@ STRIPE_PRICE_ORACLE_STAR_PRIEST=
 ## Local development
 
 ```bash
-npm install
+npm ci
+cp .env.example .env.local
 npm run dev
 ```
 
@@ -84,6 +87,8 @@ In demo mode:
 
 - checkout stores a fake local order if Stripe is not configured
 - admin can use the demo credentials shown in the UI
+
+Run `npm run lint` and `npm run build` for source checks. The external asset workspace is not bundled: previews and media need separately supplied assets, and the build can report a missing external UI-sheet image. API routes require a compatible server runtime; the Vite development server alone is not a complete live backend.
 
 ## Audio asset generation
 
@@ -97,14 +102,16 @@ npm run assets:audio:suno -- --run --all --install
 
 Dry run is the default. Put `EVOLINK_API_KEY` in `.env.local` before using `--run`; do not commit it. Generated candidates are written outside the app repo under `../dota/site-assets/w3dotashop-public/audio/portal/suno-v5`. `--install` copies the selected candidate into the canonical `/audio/portal` filenames.
 
-## Going live
+## Integration requirements
 
-To make this production-ready:
+Live integrations require further setup and validation:
 
 1. Set the Stripe secret and per-product Stripe price IDs.
 2. Set real admin credentials and an admin session secret.
 3. Point `BOT_ORDERS_API_URL` at the host-bot / entitlement service.
 4. Disable demo mode in production.
+
+These settings alone do not establish production readiness. The production admin API refuses to use the development signing fallback when its session secret is missing.
 
 ## Notes
 
